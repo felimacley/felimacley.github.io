@@ -3,58 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Faltan 2 días</title>
+<title>Un detalle</title>
 
 <style>
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+}
+
+/* ===== FONDO ===== */
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(135deg, #1a1a2e, #2b1055);
-  color: white;
+  background: linear-gradient(135deg, #2b1055, #4a148c);
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  color: white;
 }
 
+/* ===== GIRASOLES SUAVES ===== */
+.sunflower {
+  position: absolute;
+  font-size: 26px;
+  opacity: 0.3;
+  animation: float 14s linear infinite;
+}
+
+.sunflower:nth-child(1) { left: 15%; animation-duration: 16s; }
+.sunflower:nth-child(2) { left: 50%; animation-duration: 20s; }
+.sunflower:nth-child(3) { left: 75%; animation-duration: 18s; }
+
+@keyframes float {
+  from { transform: translateY(110vh) rotate(0deg); }
+  to   { transform: translateY(-20vh) rotate(360deg); }
+}
+
+/* ===== TARJETA ===== */
 .card {
-  background: rgba(255, 255, 255, 0.06);
-  padding: 28px;
-  border-radius: 18px;
-  max-width: 360px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 30px;
+  border-radius: 22px;
+  max-width: 400px;
   text-align: center;
-  animation: fadeIn 1.2s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  animation: appear 1.4s ease forwards;
+  opacity: 0;
 }
 
+@keyframes appear {
+  from { opacity: 0; transform: translateY(25px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== TEXTO ===== */
 h1 {
-  color: #9d4edd;
-}
-
-p {
-  line-height: 1.6;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-</style>
-</head>
-
-<body>
-  <div class="card">
-    <h1>Faltan 2 días</h1>
-    <p>
-      No es casualidad.<br>
-      Es solo el comienzo de algo bonito.
-    </p>
-    <p>🖤🌻</p>
-  </div>
-</body>
-</html>
+  margin-top: 0;
+  color: #ffd54f;
