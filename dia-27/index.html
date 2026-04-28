@@ -15,46 +15,52 @@ body{
   justify-content:center;
   align-items:center;
   overflow:hidden;
-  color:#4a235a;
 }
 
-.container{
-  text-align:center;
-}
+.container{text-align:center}
+.hint{margin-bottom:14px;font-size:16px}
 
-.hint{
-  margin-bottom:14px;
-  font-size:16px;
-}
+/* SVG */
+svg{width:360px;cursor:pointer}
 
-/* ===== SOBRE SVG ===== */
-svg{
-  width:360px;
-  cursor:pointer;
-}
-
-/* ===== CARTA ===== */
+/* CARTA */
 #letter{
-  transform:translateY(120px);
-  transition:transform 0.9s cubic-bezier(.2,.8,.2,1);
+  transform:translateY(140px);
 }
 
-/* ===== TAPA ===== */
+/* TEXTO OCULTO AL INICIO */
+.text{
+  opacity:0;
+  transition:opacity .4s ease;
+}
+
+/* TAPA */
 #flap{
   transform-origin:50% 0%;
-  transition:transform 0.8s ease;
+  transition:transform .6s ease;
 }
 
-/* ===== ABIERTO ===== */
+/* ANIMACIÓN SUBE Y BAJA */
 .open #letter{
-  transform:translateY(-120px);
+  animation:letterMove 1.4s ease forwards;
+}
+@keyframes letterMove{
+  0%   { transform:translateY(140px); }
+  50%  { transform:translateY(-140px); } /* sale */
+  100% { transform:translateY(-60px); }  /* se apoya */
 }
 
+/* Mostrar texto al final */
+.open .text{
+  opacity:1;
+}
+
+/* Abrir tapa */
 .open #flap{
   transform:rotateX(180deg);
 }
 
-/* ===== CONFETI ===== */
+/* CONFETI */
 .confetti{
   position:fixed;
   top:-10px;
@@ -63,10 +69,7 @@ svg{
   animation:fall 3s linear forwards;
 }
 @keyframes fall{
-  to{
-    transform:translateY(110vh) rotate(720deg);
-    opacity:0;
-  }
+  to{transform:translateY(110vh) rotate(720deg);opacity:0}
 }
 </style>
 </head>
@@ -76,46 +79,38 @@ svg{
 <div class="container">
   <div class="hint">Toca el sobre 💛✨</div>
 
-  <!-- SOBRE REAL CON SVG -->
   <svg viewBox="0 0 360 240" onclick="openEnvelope(this)">
 
-    <!-- MÁSCARA: BOCA DEL SOBRE -->
     <defs>
       <clipPath id="pocket">
         <rect x="20" y="90" width="320" height="130" rx="20"/>
       </clipPath>
     </defs>
 
-    <!-- CARTA (TOTALMENTE OCULTA) -->
+    <!-- CARTA -->
     <g id="letter" clip-path="url(#pocket)">
       <rect x="40" y="20" width="280" height="160" rx="18" fill="#fffaf2"/>
-      <text x="180" y="60" text-anchor="middle" font-size="22" font-family="serif">
-        Mañana
-      </text>
-      <text x="180" y="85" text-anchor="middle" font-size="18">
-        💛 🎁 🎂 💛
-      </text>
-      <text x="180" y="110" text-anchor="middle" font-size="14">
-        Si tú estás tranquila, yo no tanto 😅
-      </text>
-      <text x="180" y="130" text-anchor="middle" font-size="14">
-        Mañana cumple años alguien que es muy importante,
-      </text>
-      <text x="180" y="148" text-anchor="middle" font-size="14">
-        preciosa, linda, inteligente y muy especial.
-      </text>
+      <g class="text">
+        <text x="180" y="55" text-anchor="middle" font-size="22">Mañana</text>
+        <text x="180" y="78" text-anchor="middle" font-size="18">💛 🎁 🎂 💛</text>
+        <text x="180" y="102" text-anchor="middle" font-size="14">
+          Si tú estás tranquila, yo no tanto 😅
+        </text>
+        <text x="180" y="120" text-anchor="middle" font-size="14">
+          Mañana cumple años alguien que es muy importante,
+        </text>
+        <text x="180" y="138" text-anchor="middle" font-size="14">
+          preciosa, linda, inteligente y muy especial.
+        </text>
+      </g>
     </g>
 
-    <!-- CUERPO DEL SOBRE -->
+    <!-- CUERPO -->
     <rect x="20" y="60" width="320" height="160" rx="28" fill="#ff5fa2"/>
-
-    <!-- FRENTE DEL SOBRE -->
     <path d="M20 60 L180 140 L340 60 L340 220 L20 220 Z" fill="#ff5fa2"/>
 
     <!-- TAPA -->
-    <path id="flap"
-          d="M20 60 L180 140 L340 60 Z"
-          fill="#ffd166"/>
+    <path id="flap" d="M20 60 L180 140 L340 60 Z" fill="#ffd166"/>
 
   </svg>
 </div>
@@ -125,7 +120,7 @@ function openEnvelope(svg){
   if(svg.classList.contains('open')) return;
   svg.classList.add('open');
 
-  for(let i=0;i<30;i++){
+  for(let i=0;i<25;i++){
     const c=document.createElement('div');
     c.className='confetti';
     c.style.left=Math.random()*100+'vw';
