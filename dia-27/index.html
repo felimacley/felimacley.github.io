@@ -5,16 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mañana</title>
 
-<!-- Tipografías (correctamente cargadas) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-
 <style>
 body{
   margin:0;
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fff1a8);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4,#fff1a8);
   min-height:100vh;
   display:flex;
   justify-content:center;
@@ -23,62 +18,74 @@ body{
   color:#4a235a;
 }
 
-.container{
-  text-align:center;
-}
-
-.hint{
-  font-size:16px;
-  margin-bottom:18px;
-}
+.container{text-align:center}
+.hint{margin-bottom:18px;font-size:16px}
 
 /* SOBRE */
 .envelope{
-  width:340px;
-  height:230px;
-  background:#ff5fa2;
-  border-radius:26px;
+  width:360px;
+  height:240px;
   position:relative;
-  box-shadow:0 30px 60px rgba(0,0,0,.3);
   cursor:pointer;
-  overflow:hidden;
-}
-
-/* TAPA */
-.envelope::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg,#ffd166,#fcbf49);
-  clip-path:polygon(0 0,100% 0,50% 65%);
-  transform-origin:top;
-  transition:transform .8s ease;
-  z-index:3;
 }
 
 /* TARJETA */
 .card{
   position:absolute;
-  left:20px;
-  right:20px;
-  bottom:20px;
+  left:24px;
+  right:24px;
+  bottom:30px;
   height:200px;
   background:#fffaf2;
   border-radius:20px;
   padding:22px;
   text-align:center;
   box-shadow:0 20px 40px rgba(0,0,0,.25);
-  transform:translateY(150px); /* empieza OCULTA */
+  transform:translateY(160px);
   transition:transform .9s cubic-bezier(.2,.8,.2,1);
+  z-index:1;
+}
+
+/* SOBRE BASE */
+.envelope-back{
+  position:absolute;
+  inset:0;
+  background:#ff5fa2;
+  border-radius:28px;
+  box-shadow:0 30px 60px rgba(0,0,0,.3);
   z-index:2;
 }
 
-/* ESTADO ABIERTO */
-.envelope.open::before{
+/* FRENTE DEL SOBRE (TAPA TARJETA) */
+.envelope-front{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:120px;
+  background:#ff5fa2;
+  border-radius:0 0 28px 28px;
+  z-index:4;
+}
+
+/* TAPA */
+.envelope-flap{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,#ffd166,#fcbf49);
+  clip-path:polygon(0 0,100% 0,50% 65%);
+  transform-origin:top;
+  transition:transform .8s ease;
+  z-index:5;
+}
+
+/* ABIERTO */
+.envelope.open .envelope-flap{
   transform:rotateX(180deg);
 }
 .envelope.open .card{
-  transform:translateY(-130px); /* SALE DE VERDAD */
+  transform:translateY(-140px);
+  z-index:6;
 }
 
 /* TEXTO */
@@ -87,22 +94,9 @@ h1{
   font-size:28px;
   margin:0 0 8px;
 }
-
-.dots{
-  font-size:22px;
-  margin-bottom:14px;
-}
-
-p{
-  font-size:16px;
-  line-height:1.6;
-  margin:0;
-}
-
-.emojis{
-  margin-top:16px;
-  font-size:24px;
-}
+.dots{font-size:22px;margin-bottom:14px}
+p{font-size:16px;line-height:1.6;margin:0}
+.emojis{margin-top:16px;font-size:24px}
 
 /* CONFETI */
 .confetti{
@@ -113,10 +107,7 @@ p{
   animation:fall 3s linear forwards;
 }
 @keyframes fall{
-  to{
-    transform:translateY(110vh) rotate(720deg);
-    opacity:0;
-  }
+  to{transform:translateY(110vh) rotate(720deg);opacity:0}
 }
 </style>
 </head>
@@ -129,17 +120,18 @@ p{
   <div class="envelope" onclick="openEnvelope(this)">
     <div class="card">
       <h1>Mañana</h1>
-
-      <div class="dots">💛 🎁 🎂 💛</div>
-
+      <div class="dots">💛 🎁 🎂 💛💛 🎁 🎂 💛</div>
       <p>
         Si tú estás tranquila, yo no tanto 😅<br>
         Mañana cumple años alguien que es muy importante,<br>
         preciosa, linda, inteligente y muy especial.
       </p>
-
-      <div class="emojis">🌻 💛 🎉 🌻</div>
+      <div class="emojis">🌻 🌻 💛 🎉 🌻💛 🎉 🌻 💛 🎉 🌻🌻 💛 🎉 🌻🌻</div>
     </div>
+
+    <div class="envelope-back"></div>
+    <div class="envelope-front"></div>
+    <div class="envelope-flap"></div>
   </div>
 </div>
 
@@ -148,13 +140,11 @@ function openEnvelope(el){
   if(el.classList.contains('open')) return;
   el.classList.add('open');
 
-  for(let i=0;i<30;i++){
+  for(let i=0;i<25;i++){
     const c=document.createElement('div');
     c.className='confetti';
     c.style.left=Math.random()*100+'vw';
-    c.style.backgroundColor=[
-      '#ff5fa2','#ffd166','#fcbf49','#ffffff'
-    ][Math.floor(Math.random()*4)];
+    c.style.backgroundColor=['#ff5fa2','#ffd166','#fcbf49','#ffffff'][Math.floor(Math.random()*4)];
     c.style.animationDuration=2+Math.random()*2+'s';
     document.body.appendChild(c);
     setTimeout(()=>c.remove(),4000);
