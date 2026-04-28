@@ -21,7 +21,7 @@ body{
 .container{text-align:center}
 .hint{margin-bottom:18px;font-size:16px}
 
-/* SOBRE */
+/* ===== SOBRE ===== */
 .envelope{
   width:360px;
   height:240px;
@@ -29,46 +29,36 @@ body{
   cursor:pointer;
 }
 
-/* TARJETA */
-.card{
-  position:absolute;
-  left:24px;
-  right:24px;
-  bottom:30px;
-  height:200px;
-  background:#fffaf2;
-  border-radius:20px;
-  padding:22px;
-  text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,.25);
-  transform:translateY(160px);
-  transition:transform .9s cubic-bezier(.2,.8,.2,1);
-  z-index:1;
-}
-
-/* SOBRE BASE */
+/* Parte trasera */
 .envelope-back{
   position:absolute;
   inset:0;
   background:#ff5fa2;
   border-radius:28px;
   box-shadow:0 30px 60px rgba(0,0,0,.3);
-  z-index:2;
+  z-index:1;
 }
 
-/* FRENTE DEL SOBRE (TAPA TARJETA) */
-.envelope-front{
+/* Bolsillo (CLAVE) */
+.envelope-pocket{
   position:absolute;
   left:0;
   right:0;
   bottom:0;
-  height:120px;
-  background:#ff5fa2;
-  border-radius:0 0 28px 28px;
-  z-index:4;
+  height:140px;
+  overflow:hidden;            /* ⬅️ AQUÍ ESTÁ LA MAGIA */
+  z-index:3;
 }
 
-/* TAPA */
+/* Frente del sobre */
+.envelope-front{
+  position:absolute;
+  inset:0;
+  background:#ff5fa2;
+  border-radius:28px;
+}
+
+/* Tapa */
 .envelope-flap{
   position:absolute;
   inset:0;
@@ -76,19 +66,34 @@ body{
   clip-path:polygon(0 0,100% 0,50% 65%);
   transform-origin:top;
   transition:transform .8s ease;
-  z-index:5;
+  z-index:4;
 }
 
-/* ABIERTO */
+/* ===== TARJETA ===== */
+.card{
+  position:absolute;
+  left:24px;
+  right:24px;
+  bottom:-140px;              /* ⬅️ COMPLETAMENTE OCULTA */
+  height:200px;
+  background:#fffaf2;
+  border-radius:20px;
+  padding:22px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+  transition:transform .9s cubic-bezier(.2,.8,.2,1);
+}
+
+/* ===== ABIERTO ===== */
 .envelope.open .envelope-flap{
   transform:rotateX(180deg);
 }
+
 .envelope.open .card{
-  transform:translateY(-140px);
-  z-index:6;
+  transform:translateY(-160px); /* ⬅️ SALE CLARAMENTE */
 }
 
-/* TEXTO */
+/* ===== TEXTO ===== */
 h1{
   font-family:'Cormorant Garamond',serif;
   font-size:28px;
@@ -97,18 +102,6 @@ h1{
 .dots{font-size:22px;margin-bottom:14px}
 p{font-size:16px;line-height:1.6;margin:0}
 .emojis{margin-top:16px;font-size:24px}
-
-/* CONFETI */
-.confetti{
-  position:fixed;
-  top:-10px;
-  width:10px;
-  height:10px;
-  animation:fall 3s linear forwards;
-}
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(720deg);opacity:0}
-}
 </style>
 </head>
 
@@ -117,40 +110,28 @@ p{font-size:16px;line-height:1.6;margin:0}
 <div class="container">
   <div class="hint">Toca el sobre 💛✨</div>
 
-  <div class="envelope" onclick="openEnvelope(this)">
-    <div class="card">
-      <h1>Mañana</h1>
-      <div class="dots">💛 🎁 🎂 💛💛 🎁 🎂 💛</div>
-      <p>
-        Si tú estás tranquila, yo no tanto 😅<br>
-        Mañana cumple años alguien que es muy importante,<br>
-        preciosa, linda, inteligente y muy especial.
-      </p>
-      <div class="emojis">🌻 🌻 💛 🎉 🌻💛 🎉 🌻 💛 🎉 🌻🌻 💛 🎉 🌻🌻</div>
-    </div>
+  <div class="envelope" onclick="this.classList.toggle('open')">
 
     <div class="envelope-back"></div>
-    <div class="envelope-front"></div>
+
+    <!-- BOLSILLO -->
+    <div class="envelope-pocket">
+      <div class="card">
+        <h1>Mañana</h1>
+        <div class="dots">💛 🎁 🎂 💛</div>
+        <p>
+          Si tú estás tranquila, yo no tanto 😅<br>
+          Mañana cumple años alguien que es muy importante,<br>
+          preciosa, linda, inteligente y muy especial.
+        </p>
+        <div class="emojis">🌻 💛 🎉 🌻</div>
+      </div>
+      <div class="envelope-front"></div>
+    </div>
+
     <div class="envelope-flap"></div>
   </div>
 </div>
-
-<script>
-function openEnvelope(el){
-  if(el.classList.contains('open')) return;
-  el.classList.add('open');
-
-  for(let i=0;i<25;i++){
-    const c=document.createElement('div');
-    c.className='confetti';
-    c.style.left=Math.random()*100+'vw';
-    c.style.backgroundColor=['#ff5fa2','#ffd166','#fcbf49','#ffffff'][Math.floor(Math.random()*4)];
-    c.style.animationDuration=2+Math.random()*2+'s';
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),4000);
-  }
-}
-</script>
 
 </body>
 </html>
