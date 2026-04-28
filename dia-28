@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mañana</title>
+
+<!-- Tipografías elegantes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(135deg, #f7f3ff, #efe7fb);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #3a2f4f;
+}
+
+/* CONTENEDOR */
+.container {
+  text-align: center;
+}
+
+/* TEXTO SUPERIOR */
+.hint {
+  margin-bottom: 18px;
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+/* SOBRE */
+.envelope {
+  width: 260px;
+  height: 170px;
+  background: #fff;
+  border-radius: 16px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* TAPA DEL SOBRE */
+.envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f4c430;
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+  transition: transform 0.6s ease;
+  transform-origin: top;
+}
+
+/* TARJETA INTERIOR */
+.card {
+  position: absolute;
+  inset: 16px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 22px 18px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  transform: translateY(80%);
+  transition: transform 0.6s ease;
+  text-align: center;
+}
+
+/* ABIERTO */
+.envelope.open::before {
+  transform: rotateX(180deg);
+}
+
+.envelope.open .card {
+  transform: translateY(0);
+}
+
+/* TEXTO TARJETA */
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  margin: 0 0 10px 0;
+}
+
+.dots {
+  margin-bottom: 14px;
+  font-size: 20px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.emojis {
+  margin-top: 14px;
+  font-size: 22px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="hint">Toca el sobre 💛</div>
+
+  <div class="envelope" onclick="this.classList.toggle('open')">
+    <div class="card">
+      <h1>Mañana</h1>
+
+      <div class="dots">💛 🎁 🎂</div>
+
+      <p>
+        Si tú estás tranquila, yo no tanto 😅<br>
+        Mañana cumple años alguien importante.
+      </p>
+
+      <div class="emojis">🌻 💛</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
