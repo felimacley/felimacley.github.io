@@ -8,20 +8,18 @@
 <style>
 body{
   margin:0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg,#ff9a9e,#fad0c4,#fff1a8);
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fff1a8);
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
-  color:#4a235a;
 }
 
 .container{text-align:center}
-.hint{margin-bottom:18px;font-size:16px}
+.hint{margin-bottom:16px}
 
-/* ===== SOBRE ===== */
+/* SOBRE */
 .envelope{
   width:360px;
   height:240px;
@@ -29,8 +27,8 @@ body{
   cursor:pointer;
 }
 
-/* Parte trasera */
-.envelope-back{
+/* CUERPO DEL SOBRE */
+.envelope-body{
   position:absolute;
   inset:0;
   background:#ff5fa2;
@@ -39,26 +37,19 @@ body{
   z-index:1;
 }
 
-/* Bolsillo (CLAVE) */
-.envelope-pocket{
+/* BOCA DEL SOBRE (CLAVE VISUAL) */
+.envelope-mouth{
   position:absolute;
   left:0;
   right:0;
   bottom:0;
-  height:140px;
-  overflow:hidden;            /* ⬅️ AQUÍ ESTÁ LA MAGIA */
-  z-index:3;
-}
-
-/* Frente del sobre */
-.envelope-front{
-  position:absolute;
-  inset:0;
+  height:110px;
   background:#ff5fa2;
-  border-radius:28px;
+  border-radius:0 0 28px 28px;
+  z-index:4;
 }
 
-/* Tapa */
+/* TAPA */
 .envelope-flap{
   position:absolute;
   inset:0;
@@ -66,42 +57,39 @@ body{
   clip-path:polygon(0 0,100% 0,50% 65%);
   transform-origin:top;
   transition:transform .8s ease;
-  z-index:4;
+  z-index:5;
 }
 
-/* ===== TARJETA ===== */
+/* TARJETA */
 .card{
   position:absolute;
   left:24px;
   right:24px;
-  bottom:-140px;              /* ⬅️ COMPLETAMENTE OCULTA */
-  height:200px;
+  bottom:20px;
+  height:190px;
   background:#fffaf2;
   border-radius:20px;
   padding:22px;
   text-align:center;
   box-shadow:0 20px 40px rgba(0,0,0,.25);
+  transform:translateY(140px); /* TOTALMENTE OCULTA */
   transition:transform .9s cubic-bezier(.2,.8,.2,1);
+  z-index:2;
 }
 
-/* ===== ABIERTO ===== */
+/* ABIERTO */
 .envelope.open .envelope-flap{
   transform:rotateX(180deg);
 }
-
 .envelope.open .card{
-  transform:translateY(-160px); /* ⬅️ SALE CLARAMENTE */
+  transform:translateY(-120px); /* SALE CLARO */
+  z-index:3;
 }
 
-/* ===== TEXTO ===== */
-h1{
-  font-family:'Cormorant Garamond',serif;
-  font-size:28px;
-  margin:0 0 8px;
-}
-.dots{font-size:22px;margin-bottom:14px}
-p{font-size:16px;line-height:1.6;margin:0}
-.emojis{margin-top:16px;font-size:24px}
+/* TEXTO */
+h1{margin:0 0 8px}
+p{margin:0;line-height:1.6}
+.dots{margin:10px 0}
 </style>
 </head>
 
@@ -111,24 +99,18 @@ p{font-size:16px;line-height:1.6;margin:0}
   <div class="hint">Toca el sobre 💛✨</div>
 
   <div class="envelope" onclick="this.classList.toggle('open')">
-
-    <div class="envelope-back"></div>
-
-    <!-- BOLSILLO -->
-    <div class="envelope-pocket">
-      <div class="card">
-        <h1>Mañana</h1>
-        <div class="dots">💛 🎁 🎂 💛</div>
-        <p>
-          Si tú estás tranquila, yo no tanto 😅<br>
-          Mañana cumple años alguien que es muy importante,<br>
-          preciosa, linda, inteligente y muy especial.
-        </p>
-        <div class="emojis">🌻 💛 🎉 🌻</div>
-      </div>
-      <div class="envelope-front"></div>
+    <div class="card">
+      <h1>Mañana</h1>
+      <div class="dots">💛 🎁 🎂 💛</div>
+      <p>
+        Si tú estás tranquila, yo no tanto 😅<br>
+        Mañana cumple años alguien que es muy importante,<br>
+        preciosa, linda, inteligente y muy especial.
+      </p>
     </div>
 
+    <div class="envelope-body"></div>
+    <div class="envelope-mouth"></div>
     <div class="envelope-flap"></div>
   </div>
 </div>
