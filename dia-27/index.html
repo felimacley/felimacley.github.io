@@ -8,81 +8,90 @@
 <style>
 body{
   margin:0;
-  height:100vh;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fff1a8);
+  min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fff1a8);
-  font-family:Arial, sans-serif;
 }
 
-.container{text-align:center}
-.hint{margin-bottom:14px;font-size:16px}
+.container{
+  text-align:center;
+}
 
-/* ESCENA */
-.scene{
-  position:relative;
-  width:320px;
-  height:220px;
+.hint{
+  margin-bottom:16px;
 }
 
 /* SOBRE */
 .envelope{
+  position:relative;
+  width:320px;
+  height:200px;
+  cursor:pointer;
+}
+
+/* CUERPO */
+.body{
   position:absolute;
   bottom:0;
   width:100%;
-  height:160px;
+  height:140px;
   background:#ff5fa2;
-  border-radius:22px;
-  box-shadow:0 20px 40px rgba(0,0,0,.25);
+  border-radius:20px;
+  z-index:2;
 }
 
-.envelope:before{
-  content:"";
+/* TAPA */
+.flap{
   position:absolute;
-  top:0;
-  left:0;
-  right:0;
+  top:60px;
+  width:100%;
   height:80px;
   background:#ffd166;
-  clip-path:polygon(0 0,100% 0,50% 70%);
+  clip-path:polygon(0 0, 50% 100%, 100% 0);
+  transform-origin:top;
+  transition:transform .6s ease;
+  z-index:3;
 }
 
 /* CARTA */
-.card{
+.letter{
   position:absolute;
-  left:10%;
-  width:80%;
+  bottom:20px;
+  left:50%;
+  transform:translate(-50%, 120px);
+  width:260px;
   height:150px;
   background:#fffaf2;
   border-radius:16px;
-  box-shadow:0 15px 30px rgba(0,0,0,.2);
-  bottom:20px;
-  transform:translateY(140px);
+  padding:16px;
+  box-sizing:border-box;
+  text-align:center;
+  opacity:0;
+  transition:opacity .4s ease;
+  z-index:1;
 }
 
 /* TEXTO */
-.text{
-  opacity:0;
-  padding:16px;
+.letter h2{
+  margin:0;
+}
+.letter p{
   font-size:14px;
-  line-height:1.4;
-  transition:opacity .4s ease;
+  margin:8px 0 0;
 }
 
-/* ANIMACIONES */
-.scene.open .card{
-  animation:moveCard 1.4s ease forwards;
+/* ANIMACIÓN */
+.open .flap{
+  transform:rotateX(180deg);
 }
 
-.scene.open .text{
+.open .letter{
+  transform:translate(-50%, -60px);
   opacity:1;
-}
-
-@keyframes moveCard{
-  0%{ transform:translateY(140px); }
-  50%{ transform:translateY(-120px); } /* sube */
-  100%{ transform:translateY(-40px); } /* baja y queda */
+  z-index:4;
 }
 </style>
 </head>
@@ -92,21 +101,21 @@ body{
 <div class="container">
   <div class="hint">Toca el sobre 💛✨</div>
 
-  <div class="scene" onclick="this.classList.add('open')">
-    <div class="card">
-      <div class="text">
-        <strong>Mañana</strong><br><br>
+  <div class="envelope" onclick="this.classList.add('open')">
+    <div class="letter">
+      <h2>Mañana</h2>
+      <p>💛 🎁 🎂 💛</p>
+      <p>
         Si tú estás tranquila, yo no tanto 😅<br>
-        Mañana cumple años alguien que es muy importante,<br>
-        preciosa, linda, inteligente y muy especial.<br><br>
-        🌻 💛 🎉 🌻
-      </div>
+        Mañana cumple años alguien muy importante,<br>
+        preciosa, linda, inteligente y muy especial.
+      </p>
     </div>
 
-    <div class="envelope"></div>
+    <div class="body"></div>
+    <div class="flap"></div>
   </div>
 </div>
 
 </body>
 </html>
-``
