@@ -1,197 +1,199 @@
 <!DOCTYPE html>
- Helvetica, sans-serif;<html lang="es">
-  overflow:hidden;
-  color:#4a235a;
-}
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mañana</title>
 
-.container{
-  text-align:center;
-}
+  <style>
+    /* RESET */
+    * {
+      box-sizing: border-box;
+    }
 
-.hint{
-  margin-bottom:14px;
-  font-size:16px;
-}
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fff1a8);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow: hidden;
+      color: #4a235a;
+    }
 
-/* ===== ESCENA ===== */
-.scene{
-  position:relative;
-  width:320px;
-  height:300px;
-  cursor:pointer;
-}
+    .container {
+      text-align: center;
+    }
 
-/* ===== SOBRE ===== */
-.envelope{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:160px;
-  background:#ff5fa2;
-  border-radius:22px;
-  box-shadow:0 20px 40px rgba(0,0,0,.25);
-  overflow:hidden;
-  z-index:1;
-}
+    .hint {
+      margin-bottom: 14px;
+      font-size: 16px;
+    }
 
-/* TAPA */
-.flap{
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:80px;
-  background:#ffd166;
-  clip-path:polygon(0 0,100% 0,50% 70%);
-  transform-origin:top;
-  transition:transform .8s ease;
-}
+    /* ESCENA */
+    .scene {
+      position: relative;
+      width: 320px;
+      height: 300px;
+      cursor: pointer;
+    }
 
-/* ===== CARTA ===== */
-.card{
-  position:absolute;
-  left:10%;
-  width:80%;
-  height:230px;                /* MÁS ALTA */
-  background:#fffaf2;
-  border-radius:18px;
-  box-shadow:0 18px 32px rgba(0,0,0,.22);
-  bottom:20px;
+    /* SOBRE */
+    .envelope {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 160px;
+      background: #ff5fa2;
+      border-radius: 22px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      z-index: 1;
+    }
 
-  /* 🔴 CLAVE: NO EXISTE AL INICIO */
-  opacity:0;
-  pointer-events:none;
-  transform:translateY(260px);
+    /* TAPA */
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: #ffd166;
+      clip-path: polygon(0 0, 100% 0, 50% 70%);
+      transform-origin: top;
+      transition: transform 0.8s ease;
+    }
 
-  z-index:2;
-}
+    /* CARTA */
+    .card {
+      position: absolute;
+      left: 10%;
+      width: 80%;
+      height: 240px;               /* MÁS GRANDE */
+      background: #fffaf2;
+      border-radius: 18px;
+      box-shadow: 0 18px 32px rgba(0, 0, 0, 0.22);
+      bottom: 20px;
 
-/* CONTENIDO */
-.text{
-  padding:20px;
-  font-size:14px;
-  line-height:1.45;
-  text-align:center;
-  opacity:0;
-}
+      /* CLAVE: NO VISIBLE AL INICIO */
+      opacity: 0;
+      transform: translateY(320px);
+      pointer-events: none;
 
-/* ===== ANIMACIONES ===== */
-.scene.open .card{
-  opacity:1;
-  pointer-events:auto;
-  animation:cardMove 1.6s ease forwards;
-  z-index:5;
-}
+      z-index: 2;
+    }
 
-.scene.open .flap{
-  transform:rotateX(180deg);
-}
+    /* CONTENIDO */
+    .text {
+      padding: 20px;
+      font-size: 14px;
+      line-height: 1.45;
+      text-align: center;
+      opacity: 0;
+    }
 
-.scene.open .text{
-  animation:showText .4s ease forwards;
-  animation-delay:1.35s;
-}
+    /* ANIMACIONES */
+    .scene.open .card {
+      opacity: 1;
+      pointer-events: auto;
+      animation: cardMove 1.6s ease forwards;
+      z-index: 5;
+    }
 
-/* SUBE → BAJA → SE POSA */
-@keyframes cardMove{
-  0%{
-    transform:translateY(260px);
-  }
-  50%{
-    transform:translateY(-120px);
-  }
-  100%{
-    transform:translateY(-70px); /* POSICIÓN FINAL */
-  }
-}
+    .scene.open .flap {
+      transform: rotateX(180deg);
+    }
 
-@keyframes showText{
-  to{ opacity:1; }
-}
+    .scene.open .text {
+      animation: showText 0.4s ease forwards;
+      animation-delay: 1.35s;
+    }
 
-/* ===== CONFETI ===== */
-.confetti{
-  position:fixed;
-  top:-10px;
-  width:10px;
-  height:10px;
-  animation:fall 3s linear forwards;
-  opacity:.9;
-}
+    @keyframes cardMove {
+      0% {
+        transform: translateY(320px);
+      }
+      50% {
+        transform: translateY(-120px);
+      }
+      100% {
+        transform: translateY(-70px);
+      }
+    }
 
-@keyframes fall{
-  to{
-    transform:translateY(110vh) rotate(720deg);
-    opacity:0;
-  }
-}
-</style>
+    @keyframes showText {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* CONFETI */
+    .confetti {
+      position: fixed;
+      top: -10px;
+      width: 10px;
+      height: 10px;
+      animation: fall 3s linear forwards;
+      opacity: 0.9;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
-  <div class="hint">Toca el sobre 💛✨</div>
+  <div class="container">
+    <div class="hint">Toca el sobre 💛✨</div>
 
-  <div class="scene" onclick="openEnvelope(this)">
+    <div class="scene" onclick="openEnvelope(this)">
 
-    <!-- CARTA -->
-    <div class="card">
-      <div class="text">
-        <strong>Mañana</strong><br><br>
+      <!-- CARTA -->
+      <div class="card">
+        <div class="text">
+          <strong>Mañana</strong><br><br>
 
-        Si tú estás tranquila, yo no tanto 😅<br>
-        Mañana cumple años alguien que es muy importante,<br>
-        preciosa, linda, inteligente y muy especial.<br><br>
+          Si tú estás tranquila, yo no tanto 😅<br>
+          Mañana cumple años alguien que es muy importante,<br>
+          preciosa, linda, inteligente y muy especial.<br><br>
 
-        <!-- EMOJIS DENTRO DEL BLANCO -->
-        🌻 💛 🎁 🎉 💛 🌻 🌻
+          🌻 💛 🎁 🎉 💛 🌻 🌻
+        </div>
       </div>
-    </div>
 
-    <!-- SOBRE -->
-    <div class="envelope">
-      <div class="flap"></div>
-    </div>
+      <!-- SOBRE -->
+      <div class="envelope">
+        <div class="flap"></div>
+      </div>
 
+    </div>
   </div>
-</div>
 
-<script>
-function openEnvelope(el){
-  if(el.classList.contains('open')) return;
-  el.classList.add('open');
+  <script>
+    function openEnvelope(el) {
+      if (el.classList.contains('open')) return;
+      el.classList.add('open');
 
-  const colors = ['#ff5fa2','#ffd166','#fcbf49','#ffffff'];
-  for(let i=0;i<40;i++){
-    const c=document.createElement('div');
-    c.className='confetti';
-    c.style.left=Math.random()*100+'vw';
-    c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
-    c.style.animationDuration=(2+Math.random()*2)+'s';
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),4000);
-  }
-}
-</script>
+      const colors = ['#ff5fa2', '#ffd166', '#fcbf49', '#ffffff'];
+      for (let i = 0; i < 40; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        c.style.animationDuration = (2 + Math.random() * 2) + 's';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 4000);
+      }
+    }
+  </script>
 
 </body>
 </html>
 ``
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mañana</title>
-
-<style>
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fff1a8);
