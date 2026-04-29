@@ -6,7 +6,6 @@
 <title>Mañana</title>
 
 <style>
-/* ===== RESET BÁSICO ===== */
 *{
   box-sizing:border-box;
 }
@@ -36,7 +35,7 @@ body{
 .scene{
   position:relative;
   width:320px;
-  height:260px;
+  height:270px;
   cursor:pointer;
 }
 
@@ -53,7 +52,7 @@ body{
   z-index:1;
 }
 
-/* TAPA DEL SOBRE */
+/* TAPA */
 .flap{
   position:absolute;
   top:0;
@@ -71,49 +70,54 @@ body{
   position:absolute;
   left:10%;
   width:80%;
-  height:180px;                 /* MÁS ALTA PARA QUE SE LEA TODO */
+  height:190px;
   background:#fffaf2;
   border-radius:16px;
   box-shadow:0 18px 32px rgba(0,0,0,.22);
   bottom:20px;
-  transform:translateY(150px);  /* TOTALMENTE OCULTA AL INICIO */
+  transform:translateY(200px); /* MÁS ABAJO → NO SE VE AL CARGAR */
   z-index:2;
 }
 
-/* CONTENIDO DE LA CARTA */
+/* TEXTO (OCULTO AL INICIO) */
 .text{
   opacity:0;
-  padding:16px;
+  padding:18px;
   font-size:14px;
-  line-height:1.4;
+  line-height:1.45;
   transition:opacity .4s ease;
 }
 
 /* ===== ANIMACIONES ===== */
 .scene.open .card{
-  animation:cardMove 1.4s ease forwards;
-  z-index:5;                    /* QUEDA AL FRENTE */
+  animation:cardMove 1.5s ease forwards;
+  z-index:5;
 }
 
 .scene.open .flap{
   transform:rotateX(180deg);
 }
 
+/* TEXTO APARECE SOLO AL FINAL */
 .scene.open .text{
-  opacity:1;
+  animation:showText .4s ease forwards;
+  animation-delay:1.3s;
 }
 
-/* SUBE → BAJA → SE POSA */
 @keyframes cardMove{
   0%{
-    transform:translateY(150px);
+    transform:translateY(200px);
   }
   50%{
-    transform:translateY(-120px); /* SALE DEL SOBRE */
+    transform:translateY(-120px);
   }
   100%{
-    transform:translateY(-70px);  /* SE POSA ENCIMA (AJUSTE FINAL) */
+    transform:translateY(-85px); /* POSICIÓN FINAL MÁS BAJA Y ELEGANTE */
   }
+}
+
+@keyframes showText{
+  to{ opacity:1; }
 }
 
 /* ===== CONFETI ===== */
@@ -149,7 +153,7 @@ body{
         Si tú estás tranquila, yo no tanto 😅<br>
         Mañana cumple años alguien que es muy importante,<br>
         preciosa, linda, inteligente y muy especial.<br><br>
-        🌻 💛 🎉 🌻
+        🌻 💛 🎁 🎉 💛 🌻
       </div>
     </div>
 
@@ -167,7 +171,7 @@ function openEnvelope(el){
   el.classList.add('open');
 
   const colors = ['#ff5fa2','#ffd166','#fcbf49','#ffffff'];
-  for(let i=0;i<30;i++){
+  for(let i=0;i<35;i++){
     const c = document.createElement('div');
     c.className = 'confetti';
     c.style.left = Math.random()*100 + 'vw';
