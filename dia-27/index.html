@@ -1,177 +1,158 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Tarjeta interactiva</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mañana</title>
 
-  <style>
-    /* =====================
-       RESET Y BASE
-    ====================== */
-    * {
-      box-sizing: border-box;
-    }
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fff1a8);
+  font-family:Arial, sans-serif;
+  overflow:hidden;
+}
 
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #f6d365, #fda085);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      overflow: hidden;
-    }
+.container{text-align:center}
+.hint{margin-bottom:14px;font-size:16px}
 
-    /* =====================
-       CONTENEDOR PRINCIPAL
-    ====================== */
-    .scene {
-      position: relative;
-      width: 260px;
-      height: 220px;
-    }
+/* ESCENA */
+.scene{
+  position:relative;
+  width:320px;
+  height:260px;
+  cursor:pointer;
+}
 
-    /* =====================
-       SOBRE
-    ====================== */
-    .envelope {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 160px;
-      background: #e0a96d;
-      border-radius: 0 0 10px 10px;
-      cursor: pointer;
-      z-index: 2;
-    }
+/* SOBRE */
+.envelope{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:160px;
+  background:#ff5fa2;
+  border-radius:22px;
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+  overflow:hidden;
+}
 
-    /* Parte frontal */
-    .envelope::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: #e8b57a;
-      border-radius: 0 0 10px 10px;
-      z-index: 1;
-    }
+/* TAPA */
+.flap{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:80px;
+  background:#ffd166;
+  clip-path:polygon(0 0,100% 0,50% 70%);
+  transform-origin:top;
+  transition:transform .8s ease;
+}
 
-    /* =====================
-       TAPA DEL SOBRE
-    ====================== */
-    .flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #d79a5b;
-      clip-path: polygon(0 0, 50% 55%, 100% 0);
-      transform-origin: top;
-      transition: transform 0.8s ease;
-      z-index: 3;
-    }
+/* CARTA */
+.card{
+  position:absolute;
+  left:10%;
+  width:80%;
+  height:150px;
+  background:#fffaf2;
+  border-radius:16px;
+  box-shadow:0 15px 30px rgba(0,0,0,.2);
+  bottom:20px;
+  transform:translateY(140px);
+}
 
-    .open .flap {
-      transform: rotateX(180deg);
-    }
+/* TEXTO */
+.text{
+  opacity:0;
+  padding:16px;
+  font-size:14px;
+  line-height:1.4;
+  transition:opacity .4s ease;
+}
 
-    /* =====================
-       TARJETA
-    ====================== */
-    .card {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(0);
-      width: 220px;
-      height: 140px;
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-      font-size: 1.1rem;
-      line-height: 1.4;
-      z-index: 1;
-      transition: transform 1s ease;
-    }
+/* ANIMACIÓN TARJETA */
+.scene.open .card{
+  animation:cardMove 1.4s ease forwards;
+}
 
-    .open .card {
-      transform: translateX(-50%) translateY(-120px);
-      z-index: 4;
-    }
+/* ANIMACIÓN TAPA */
+.scene.open .flap{
+  transform:rotateX(180deg);
+}
 
-    /* =====================
-       CONFETI
-    ====================== */
-    .confetti {
-      position: absolute;
-      width: 8px;
-      height: 12px;
-      background: red;
-      top: -20px;
-      animation: fall 2.5s linear forwards;
-    }
+/* TEXTO APARECE AL FINAL */
+.scene.open .text{
+  opacity:1;
+}
 
-    @keyframes fall {
-      to {
-        transform: translateY(300px) rotate(360deg);
-        opacity: 0;
-      }
-    }
-  </style>
+@keyframes cardMove{
+  0%{ transform:translateY(140px); }
+  50%{ transform:translateY(-120px); }
+  100%{ transform:translateY(-40px); }
+}
+
+/* CONFETI */
+.confetti{
+  position:fixed;
+  top:-10px;
+  width:10px;
+  height:10px;
+  animation:fall 3s linear forwards;
+  opacity:.9;
+}
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+    opacity:0;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="scene" id="scene">
+<div class="container">
+  <div class="hint">Toca el sobre 💛✨</div>
+
+  <div class="scene" onclick="openEnvelope(this)">
     <div class="card">
-      💌 <br />
-      Este es tu mensaje especial.<br />
-      ¡Puedes cambiarlo fácilmente!
+      <div class="text">
+        <strong>Mañana</strong><br><br>
+        Si tú estás tranquila, yo no tanto 😅<br>
+        Mañana cumple años alguien que es muy importante,<br>
+        preciosa, linda, inteligente y muy especial.<br><br>
+        🌻 💛 🎉 🌻
+      </div>
     </div>
 
-    <div class="envelope" id="envelope">
+    <div class="envelope">
       <div class="flap"></div>
     </div>
   </div>
+</div>
 
-  <script>
-    const scene = document.getElementById("scene");
-    const envelope = document.getElementById("envelope");
-    let opened = false;
+<script>
+function openEnvelope(el){
+  if(el.classList.contains('open')) return;
+  el.classList.add('open');
 
-    envelope.addEventListener("click", () => {
-      if (opened) return;
-      opened = true;
-
-      scene.classList.add("open");
-      createConfetti();
-    });
-
-    function createConfetti() {
-      const colors = ["#ff4d4d", "#ffd633", "#4dd2ff", "#95e06c", "#c77dff"];
-
-      for (let i = 0; i < 30; i++) {
-        const confetti = document.createElement("div");
-        confetti.classList.add("confetti");
-        confetti.style.left = Math.random() * 100 + "%";
-        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.animationDelay = Math.random() * 0.5 + "s";
-
-        scene.appendChild(confetti);
-
-        confetti.addEventListener("animationend", () => {
-          confetti.remove();
-        });
-      }
-    }
-  </script>
+  const colors = ['#ff5fa2','#ffd166','#fcbf49','#ffffff'];
+  for(let i=0;i<30;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration=(2+Math.random()*2)+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+</script>
 
 </body>
 </html>
