@@ -57,14 +57,8 @@ body{
   box-shadow:0 24px 50px rgba(0,0,0,.2);
 }
 
-.message h1{
-  margin-top:0;
-}
-
-.message p{
-  line-height:1.5;
-  font-size:15px;
-}
+.message h1{ margin-top:0; }
+.message p{ line-height:1.5; font-size:15px; }
 
 /* BOTÓN */
 button{
@@ -78,9 +72,7 @@ button{
   cursor:pointer;
 }
 
-button:hover{
-  background:#7c3aed;
-}
+button:hover{ background:#7c3aed; }
 
 /* COLLAGE */
 .collage{
@@ -99,11 +91,12 @@ button:hover{
   to{ opacity:1; transform:translateY(0); }
 }
 
-/* GRID FOTOS */
+/* GRID DEL COLLAGE (CORREGIDO) */
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
+  align-items:stretch;
 }
 
 .grid img{
@@ -117,15 +110,29 @@ button:hover{
   grid-column:span 2;
 }
 
-/* INUYASHA */
-.anime{
-  margin-top:18px;
+/* INUYASHA EN EL HUECO */
+.anime-box{
+  grid-column:span 2;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#f6f0ff;
+  border-radius:18px;
+  padding:16px;
 }
 
-.anime img{
-  width:120px;
+.anime-box img{
+  width:140px;
+  max-width:80%;
   border-radius:16px;
   box-shadow:0 10px 20px rgba(0,0,0,.2);
+}
+
+/* EMOJIS FINALES */
+.emojis-final{
+  margin-top:14px;
+  font-size:22px;
+  text-align:center;
 }
 
 /* CONFETI */
@@ -176,13 +183,14 @@ button:hover{
       <img src="2.jpeg" class="big">
       <img src="3.jpeg">
       <img src="4.jpeg">
+
+      <!-- AQUÍ VA LA IMAGEN DEL CÍRCULO VERDE -->
+      <div class="anime-box">
+        <img src="inuysha.jpg" alt="Inuyasha y Aome">
+      </div>
     </div>
 
-    <div class="anime">
-      <img src="inuysha.jpg" alt="Inuyasha y Aome">
-    </div>
-
-    <div style="margin-top:14px;font-size:22px;">
+    <div class="emojis-final">
       🥰 💛 ✨
     </div>
   </div>
@@ -190,7 +198,6 @@ button:hover{
 </div>
 
 <script>
-/* MOSTRAR COLLAGE + CONFETI */
 function showCollage(){
   const c = document.getElementById('collage');
   if(c.style.display === 'block') return;
@@ -208,7 +215,7 @@ function showCollage(){
   }
 }
 
-/* EMOJIS FLOTANTES CONSTANTES */
+/* EMOJIS FLOTANTES */
 const emojis = ['🌻','💛','🎁','🎉','✨','🖤'];
 for(let i=0;i<25;i++){
   const e=document.createElement('div');
