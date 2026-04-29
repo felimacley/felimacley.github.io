@@ -12,15 +12,17 @@ body{
   margin:0;
   min-height:100vh;
   font-family:Arial, Helvetica, sans-serif;
-  background:linear-gradient(135deg,#ffecd2,#fcb69f,#ffdde1);
   color:#4a235a;
   overflow-x:hidden;
-}
 
-/* CONTENEDOR PRINCIPAL */
-.wrapper{
-  padding:40px 20px 60px;
-  text-align:center;
+  /* FONDO KUROMI EN MOSAICO */
+  background-color:#e9d9ff;
+  background-image:
+    url("kuromi1.png"),
+    url("kuromi2.png"),
+    url("kuromi3.png");
+  background-repeat: repeat;
+  background-size: 180px;
 }
 
 /* EMOJIS FLOTANTES */
@@ -28,7 +30,7 @@ body{
   position:fixed;
   top:-20px;
   font-size:20px;
-  animation:floatDown 12s linear infinite;
+  animation:floatDown 14s linear infinite;
   opacity:0.6;
 }
 
@@ -39,7 +41,13 @@ body{
   }
 }
 
-/* MENSAJE */
+/* CONTENEDOR */
+.wrapper{
+  padding:40px 20px 60px;
+  text-align:center;
+}
+
+/* MENSAJE INICIAL */
 .message{
   max-width:420px;
   margin:0 auto 30px;
@@ -65,16 +73,16 @@ button{
   font-size:15px;
   border:none;
   border-radius:20px;
-  background:#ff5fa2;
+  background:#8b5cf6;
   color:white;
   cursor:pointer;
 }
 
 button:hover{
-  background:#ff3f97;
+  background:#7c3aed;
 }
 
-/* COLLAGE (OCULTO AL INICIO) */
+/* COLLAGE */
 .collage{
   display:none;
   max-width:460px;
@@ -83,10 +91,15 @@ button:hover{
   padding:22px;
   border-radius:28px;
   box-shadow:0 24px 50px rgba(0,0,0,.25);
-  animation:appear 0.9s ease forwards;
+  animation:appear .9s ease forwards;
 }
 
-/* GRID COLLAGE */
+@keyframes appear{
+  from{ opacity:0; transform:translateY(20px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* GRID DE FOTOS */
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -99,21 +112,19 @@ button:hover{
   object-fit:cover;
 }
 
-/* FOTOS GRANDES */
 .big{
   grid-column:span 2;
 }
 
-/* ANIMACIÓN */
-@keyframes appear{
-  from{
-    opacity:0;
-    transform:translateY(20px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+/* INUYASHA DETALLE */
+.anime{
+  margin-top:20px;
+}
+
+.anime img{
+  width:120px;
+  border-radius:16px;
+  box-shadow:0 10px 20px rgba(0,0,0,.2);
 }
 
 /* CONFETI */
@@ -139,7 +150,7 @@ button:hover{
 
 <div class="wrapper">
 
-  <!-- MENSAJE INICIAL -->
+  <!-- MENSAJE -->
   <div class="message">
     <h1>Feliz cumpleaños 🎂</h1>
     <p>
@@ -159,13 +170,18 @@ button:hover{
   <!-- COLLAGE -->
   <div id="collage" class="collage">
     <div class="grid">
-      <img src="1.jpeg" class="big" alt="">
-      <img src="2.jpeg" class="big" alt="">
-      <img src="3.jpeg" alt="">
-      <img src="4.jpeg" alt="">
+      <img src="1.jpeg" class="big">
+      <img src="2.jpeg" class="big">
+      <img src="3.jpeg">
+      <img src="4.jpeg">
     </div>
 
-    <div style="margin-top:18px; font-size:22px;">
+    <!-- DETALLE ANIME -->
+    <div class="anime">
+      <img src="inuyasha.png" alt="Inuyasha y Aome">
+    </div>
+
+    <div style="margin-top:14px;font-size:22px;">
       🥰 💛 ✨
     </div>
   </div>
@@ -178,8 +194,7 @@ function showCollage(){
   if(c.style.display === 'block') return;
   c.style.display = 'block';
 
-  // CONFETI
-  const colors = ['#ff5fa2','#ffd166','#fcbf49','#ffffff'];
+  const colors = ['#8b5cf6','#ffd166','#fcbf49','#ffffff'];
   for(let i=0;i<70;i++){
     const conf=document.createElement('div');
     conf.className='confetti';
@@ -191,18 +206,17 @@ function showCollage(){
   }
 }
 
-// Emojis flotantes
-const emojis = ['🌻','💛','🎁','🎉','✨'];
-for(let i=0;i<15;i++){
+// emojis flotantes
+const emojis = ['🌻','💛','🎁','🎉','✨','🖤'];
+for(let i=0;i<20;i++){
   const e=document.createElement('div');
   e.className='floating';
   e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
   e.style.left=Math.random()*100+'vw';
-  e.style.animationDuration=(8+Math.random()*6)+'s';
+  e.style.animationDuration=(10+Math.random()*8)+'s';
   document.body.appendChild(e);
 }
 </script>
 
 </body>
 </html>
-
