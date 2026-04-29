@@ -15,39 +15,19 @@ body{
   color:#4a235a;
   overflow-x:hidden;
 
-  /* FONDO KUROMI EN MOSAICO */
+  /* FONDO KUROMI */
   background-color:#e9d9ff;
-  background-image:
-    url("kuromi1.png"),
-    url("kuromi2.png"),
-    url("kuromi3.png");
-  background-repeat: repeat;
-  background-size: 180px;
+  background-image:url("kuromi.png");
+  background-repeat:repeat;
+  background-size:180px;
 }
 
-/* EMOJIS FLOTANTES */
-.floating{
-  position:fixed;
-  top:-20px;
-  font-size:20px;
-  animation:floatDown 14s linear infinite;
-  opacity:0.6;
-}
-
-@keyframes floatDown{
-  to{
-    transform:translateY(110vh);
-    opacity:0;
-  }
-}
-
-/* CONTENEDOR */
 .wrapper{
   padding:40px 20px 60px;
   text-align:center;
 }
 
-/* MENSAJE INICIAL */
+/* MENSAJE */
 .message{
   max-width:420px;
   margin:0 auto 30px;
@@ -57,14 +37,8 @@ body{
   box-shadow:0 24px 50px rgba(0,0,0,.2);
 }
 
-.message h1{
-  margin-top:0;
-}
-
-.message p{
-  line-height:1.5;
-  font-size:15px;
-}
+.message h1{ margin-top:0; }
+.message p{ line-height:1.5; font-size:15px; }
 
 /* BOTÓN */
 button{
@@ -78,9 +52,7 @@ button{
   cursor:pointer;
 }
 
-button:hover{
-  background:#7c3aed;
-}
+button:hover{ background:#7c3aed; }
 
 /* COLLAGE */
 .collage{
@@ -99,7 +71,7 @@ button:hover{
   to{ opacity:1; transform:translateY(0); }
 }
 
-/* GRID DE FOTOS */
+/* GRID FOTOS */
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -112,13 +84,11 @@ button:hover{
   object-fit:cover;
 }
 
-.big{
-  grid-column:span 2;
-}
+.big{ grid-column:span 2; }
 
-/* INUYASHA DETALLE */
+/* INUYASHA */
 .anime{
-  margin-top:20px;
+  margin-top:18px;
 }
 
 .anime img{
@@ -150,7 +120,6 @@ button:hover{
 
 <div class="wrapper">
 
-  <!-- MENSAJE -->
   <div class="message">
     <h1>Feliz cumpleaños 🎂</h1>
     <p>
@@ -167,16 +136,14 @@ button:hover{
     <button onclick="showCollage()">Toca aquí 💛</button>
   </div>
 
-  <!-- COLLAGE -->
   <div id="collage" class="collage">
     <div class="grid">
-      <img src="1.jpeg" class="big">
-      <img src="2.jpeg" class="big">
-      <img src="3.jpeg">
-      <img src="4.jpeg">
+      <img src="1.jpeg" class="big" alt="">
+      <img src="2.jpeg" class="big" alt="">
+      <img src="3.jpeg" alt="">
+      <img src="4.jpeg" alt="">
     </div>
 
-    <!-- DETALLE ANIME -->
     <div class="anime">
       <img src="inuyasha.png" alt="Inuyasha y Aome">
     </div>
@@ -204,17 +171,6 @@ function showCollage(){
     document.body.appendChild(conf);
     setTimeout(()=>conf.remove(),5000);
   }
-}
-
-// emojis flotantes
-const emojis = ['🌻','💛','🎁','🎉','✨','🖤'];
-for(let i=0;i<20;i++){
-  const e=document.createElement('div');
-  e.className='floating';
-  e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-  e.style.left=Math.random()*100+'vw';
-  e.style.animationDuration=(10+Math.random()*8)+'s';
-  document.body.appendChild(e);
 }
 </script>
 
