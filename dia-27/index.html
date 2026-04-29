@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Prueba limpia</title>
 
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fff1a8);
+  font-family: Arial, sans-serif;
+}
+
+.scene {
+  position: relative;
+  width: 320px;
+  height: 260px;
+  cursor: pointer;
+}
+
+.envelope {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 160px;
+  background: #ff5fa2;
+  border-radius: 22px;
+}
+
+.card {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  height: 230px;
+  background: #fffaf2;
+  border-radius: 18px;
+  bottom: 20px;
+
+  opacity: 0;
+  transform: translateY(260px);
+  transition: transform 1s ease, opacity .3s ease;
+}
+
+.scene.open .card {
+  opacity: 1;
+  transform: translateY(-70px);
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene" onclick="this.classList.add('open')">
+  <div class="card">
+    <div style="padding:20px; text-align:center;">
+      <strong>Mañana</strong><br><br>
+      Texto visible<br><br>
+      🌻 💛 🎁 🎉 💛 🌻
+    </div>
+  </div>
+
+  <div class="envelope"></div>
+</div>
+
+</body>
+</html>
